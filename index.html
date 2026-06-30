@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fekro® | Enterprise Workspace</title>
+    <title>FekroO Agency | الابتكار يلتقي بالفخامة</title>
     
-    <meta property="og:title" content="fekro® | Enterprise Workspace">
-    <meta property="og:description" content="Official Management Portal for fekro Design Agency.">
+    <meta property="og:title" content="FekroO Agency | Enterprise Workspace">
+    <meta property="og:description" content="Official Management Portal for FekroO Design & Advertising Agency.">
     <meta property="og:type" content="website">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -74,26 +74,10 @@
             align-items: center;
         }
 
-        /* --- 3D Logo Engine --- */
         .logo-container {
             display: flex;
             align-items: center;
             gap: 10px;
-            perspective: 1000px;
-        }
-
-        .dynamic-logo {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
-        }
-
-        .logo-container:hover .dynamic-logo {
-            transform: rotateY(15deg) rotateX(10deg) translateZ(10px);
-            filter: drop-shadow(-5px 8px 12px var(--accent-glow));
         }
 
         .logo-text {
@@ -125,6 +109,7 @@
             align-items: center;
             gap: 8px;
             font-weight: 600;
+            text-decoration: none;
         }
 
         .btn-icon:hover, .btn-prime:hover {
@@ -155,10 +140,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Landing Page --- */
+        /* --- Landing Page (Hero, Services, Features) --- */
         .hero {
             text-align: center;
-            padding: 6rem 2rem 4rem;
+            padding: 6rem 2rem 3rem;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -169,15 +154,55 @@
             font-weight: 800;
         }
 
+        .hero h1 span {
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
         .hero p {
             color: var(--text-muted);
             font-size: 1.2rem;
             margin-bottom: 2rem;
         }
 
+        /* --- Social Connect Buttons Section --- */
+        .social-connect-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            padding: 0 2rem;
+        }
+
+        .btn-social {
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-social:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-facebook { background: #1877F2; }
+        .btn-facebook:hover { box-shadow: 0 0 15px rgba(24,119,242,0.6); }
+        .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .btn-instagram:hover { box-shadow: 0 0 15px rgba(220,39,67,0.6); }
+        .btn-whatsapp { background: #25D366; }
+        .btn-whatsapp:hover { box-shadow: 0 0 15px rgba(37,211,102,0.6); }
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             padding: 2rem;
             max-width: 1200px;
@@ -247,6 +272,12 @@
         /* --- Forms & Controls --- */
         .form-group {
             margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
         }
 
         .form-control {
@@ -377,8 +408,7 @@
 
     <header class="glass-panel">
         <div class="logo-container">
-            <img src="./logo.png" alt="fekro Logo" class="dynamic-logo" onerror="this.style.display='none';">
-            <div class="logo-text">fekro<span>.</span></div>
+            <div class="logo-text">FekroO<span>.</span></div>
         </div>
         <div class="nav-controls">
             <button class="btn-icon" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
@@ -394,25 +424,38 @@
         <section class="hero">
             <h1 class="lang-en">We Design the <span>Digital</span> Future</h1>
             <h1 class="lang-ar">نحن نصمم المستقبل <span>الرقمي</span></h1>
-            <p class="lang-en">Exclusive high-end digital solutions crafted for elite enterprises. Innovation meets absolute luxury.</p>
-            <p class="lang-ar">حلول رقمية راقية مصممة خصيصاً للمؤسسات النخبوية. الابتكار يلتقي بالفخامة المطلقة.</p>
+            <p class="lang-en">FekroO Agency for Advertising, Content Creation, Photography, and Elite Visual Branding.</p>
+            <p class="lang-ar">وكالة فيكرو للدعاية والإعلان، صناعة المحتوى، التصوير الفوتوغرافي، وبناء الهويات البصرية النخبوية.</p>
+        </section>
+
+        <!-- Social Connect Section -->
+        <section class="social-connect-container">
+            <a href="https://www.facebook.com/share/18mmBvU115/" target="_blank" class="btn-social btn-facebook">
+                <i class="fa-brands fa-facebook-f"></i> Facebook
+            </a>
+            <a href="https://www.instagram.com/fekroo.ag?igsh=MXh6cHRldmVudmRoYQ==" target="_blank" class="btn-social btn-instagram">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+            <a href="https://wa.me/201066880652" target="_blank" class="btn-social btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp Direct
+            </a>
         </section>
 
         <section class="grid-container">
             <div class="card glass-panel">
+                <i class="fa-solid fa-rectangle-ad"></i>
+                <h3 class="lang-en">Digital Marketing</h3><h3 class="lang-ar">التسويق الرقمي والدعاية</h3>
+                <p class="lang-en">Elite advertising solutions.</p><p class="lang-ar">حلول إعلانية وتسويقية مبتكرة.</p>
+            </div>
+            <div class="card glass-panel">
+                <i class="fa-solid fa-camera"></i>
+                <h3 class="lang-en">Content & Photography</h3><h3 class="lang-ar">صناعة المحتوى والتصوير</h3>
+                <p class="lang-en">High-end visual production.</p><p class="lang-ar">إنتاج مرئي ومحتوى فوتوغرافي احترافي.</p>
+            </div>
+            <div class="card glass-panel">
                 <i class="fa-solid fa-bezier-curve"></i>
-                <h3 class="lang-en">UI/UX Crafting</h3><h3 class="lang-ar">تصميم واجهات الاستخدام</h3>
-                <p class="lang-en">Elite user experiences.</p><p class="lang-ar">خبرات مستخدم نخبوية.</p>
-            </div>
-            <div class="card glass-panel">
-                <i class="fa-solid fa-eye"></i>
-                <h3 class="lang-en">Visual Branding</h3><h3 class="lang-ar">الهوية البصرية</h3>
-                <p class="lang-en">Unforgettable brand identities.</p><p class="lang-ar">هويات تجارية لا تُنسى.</p>
-            </div>
-            <div class="card glass-panel">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <h3 class="lang-en">Motion Design</h3><h3 class="lang-ar">موشن ديزاين</h3>
-                <p class="lang-en">Fluid programmatic animations.</p><p class="lang-ar">تحريكات برمجية سلسة.</p>
+                <h3 class="lang-en">Branding & Design</h3><h3 class="lang-ar">الهوية البصرية والديزاين</h3>
+                <p class="lang-en">Unforgettable corporate identity.</p><p class="lang-ar">رسم وبناء هويات تجارية فريدة.</p>
             </div>
         </section>
     </main>
@@ -444,6 +487,7 @@
                             <option value="عمر موسى">Omar Mousa / عمر موسى</option>
                             <option value="رحمة">Rahma / رحمة</option>
                             <option value="جنى">Jana / جنى</option>
+                            <option value="محروس">Mahrous / محروس</option>
                         </select>
                         <button type="submit" class="btn-prime"><i class="fa-solid fa-plus"></i></button>
                     </form>
@@ -499,7 +543,7 @@
 
     <script>
         /* --- Cryptographic System State & Memory Engine --- */
-        const GATEKEEPER_KEY = "f3kro";
+        const GATEKEEPER_KEY = "fekro2026";
         let tasks = JSON.parse(localStorage.getItem('fekro_tasks')) || [];
         let ledger = JSON.parse(localStorage.getItem('fekro_ledger')) || [];
 
