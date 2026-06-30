@@ -29,19 +29,18 @@
             --shadow: rgba(0, 0, 0, 0.05);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); overflow-x: hidden; min-height: 100vh; transition: background 0.3s, color 0.3s; }
-        
-        /* تمنع تحديد النصوص كحماية إضافية عبيطة */
-        body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-
+        body { 
+            background-color: var(--bg-main); color: var(--text-main); 
+            overflow-x: hidden; min-height: 100vh; transition: background 0.3s, color 0.3s;
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
         header {
             position: fixed; top: 0; width: 100%; z-index: 999;
-            padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
+            padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
             background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
         }
-        .logo { font-weight: 900; font-size: 1.5rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; }
-        .logo span { color: var(--accent); }
+        .logo-container img { height: 40px; width: auto; object-fit: contain; }
         .nav-controls { display: flex; gap: 10px; align-items: center; }
         .btn-icon, .btn-prime {
             background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
@@ -52,50 +51,71 @@
         .btn-prime { background: var(--accent); color: white; border: none; }
         .btn-prime:hover { box-shadow: 0 0 15px var(--accent-glow); opacity: 0.9; }
         
-        .view-section { display: none; padding: 120px 1.5rem 4rem; max-width: 1200px; margin: 0 auto; }
+        .view-section { display: none; padding: 120px 1.5rem 4rem; max-width: 1400px; margin: 0 auto; }
         .view-section.active { display: block; animation: fadeIn 0.4s ease forwards; }
         
         .hero { text-align: center; max-width: 800px; margin: 0 auto 3rem; }
-        .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+        .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
         .hero h1 span { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
-        .hero p { color: var(--text-muted); font-size: 1.1rem; }
+        .hero p { color: var(--text-muted); font-size: 1.2rem; }
         
-        .social-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 3rem; }
-        .btn-social { padding: 12px 20px; border-radius: 30px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
+        .social-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4rem; }
+        .btn-social { padding: 14px 24px; border-radius: 30px; color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .btn-social:hover { transform: translateY(-3px); }
         .fb { background: #1877f2; } .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); } .wa { background: #25d366; }
         
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 2.5rem 1.5rem; border-radius: 16px; text-align: center; box-shadow: 0 10px 30px var(--shadow); transition: border 0.3s, transform 0.3s; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 3rem 1.5rem; border-radius: 16px; text-align: center; box-shadow: 0 10px 30px var(--shadow); transition: border 0.3s, transform 0.3s; }
         .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1.5rem; }
-        .card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; }
+        .card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 1.5rem; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .card p { color: var(--text-muted); font-size: 1rem; }
 
-        .admin-layout { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; }
-        @media (max-width: 768px) { .admin-layout { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+        /* Admin Structure */
+        .admin-layout { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; }
+        @media (max-width: 992px) { .admin-layout { grid-template-columns: 1fr; } }
         .sidebar { background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 16px; display: flex; flex-direction: column; gap: 10px; height: fit-content; }
-        .sidebar-btn { background: transparent; border: none; color: var(--text-muted); padding: 12px; text-align: left; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 10px; transition: all 0.2s; }
+        .sidebar-btn { background: transparent; border: none; color: var(--text-muted); padding: 12px 15px; text-align: left; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 10px; transition: all 0.2s; }
         body[dir="rtl"] .sidebar-btn { text-align: right; }
         .sidebar-btn.active, .sidebar-btn:hover { background: var(--accent); color: white; }
         
-        .form-control { width: 100%; padding: 12px; background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 10px; }
-        .matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-        .day-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 1rem; border-radius: 12px; }
-        .day-title { font-weight: 700; border-bottom: 2px solid var(--accent); padding-bottom: 4px; margin-bottom: 1rem; }
-        .task-item { background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px; margin-bottom: 8px; font-size: 0.85rem; }
+        .admin-tab-content { display: none; }
+        .admin-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center; padding:1rem; }
-        .modal-content { background: var(--glass-bg); border: 1px solid var(--border-color); padding: 2rem; border-radius: 16px; max-width: 400px; width: 100%; text-align: center; }
+        .form-control { width: 100%; padding: 12px; background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; margin-bottom: 10px; font-weight: 500; }
+        .matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+        .day-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); }
+        .day-title { font-weight: 800; border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 1.2rem; text-transform: uppercase; color: var(--accent); }
+        .task-item { background: rgba(0,0,0,0.15); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.9rem; position: relative; padding-right: 30px; }
+        body[dir="rtl"] .task-item { padding-right: 10px; padding-left: 30px; }
+        .task-item .del-task { position: absolute; right: 10px; top: 10px; cursor: pointer; color: var(--text-muted); border: none; background: transparent; }
+        body[dir="rtl"] .task-item .del-task { right: auto; left: 10px; }
+        .task-item .del-task:hover { color: var(--accent); }
+        .assignee-badge { display: inline-block; background: var(--accent); color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-top: 5px; font-weight: bold; }
+
+        /* Finance Styles */
+        .ledger-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .summary-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 12px; text-align: center; }
+        .summary-card h4 { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .summary-card p { font-size: 1.6rem; font-weight: 800; }
+        .ledger-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.95rem; }
+        .ledger-table th, .ledger-table td { padding: 12px; border-bottom: 1px solid var(--border-color); text-align: left; }
+        body[dir="rtl"] .ledger-table th, body[dir="rtl"] .ledger-table td { text-align: right; }
+        .ledger-table th { background: rgba(255,255,255,0.02); font-weight: 700; }
+
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index:1000; justify-content:center; align-items:center; padding:1rem; }
+        .modal-content { background: var(--glass-bg); border: 1px solid var(--border-color); padding: 2.5rem; border-radius: 16px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         [data-lang="en"] .lang-ar, [data-lang="ar"] .lang-en { display: none; }
     </style>
 </head>
-<body>
+<body data-lang="en" dir="ltr">
 
     <header>
-        <div class="logo">FekroO<span>.ag</span></div>
+        <div class="logo-container">
+            <img src="logo.png" alt="FekroO Logo" onerror="this.style.display='none'; this.after(document.createTextNode('FekroO.ag'))">
+        </div>
         <div class="nav-controls">
             <button class="btn-icon" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
             <button class="btn-icon" onclick="toggleLanguage()"><span class="lang-en">العربية</span><span class="lang-ar">English</span></button>
@@ -133,7 +153,7 @@
             <div class="card">
                 <i class="fa-solid fa-bezier-curve"></i>
                 <h3 class="lang-en">Branding</h3><h3 class="lang-ar">الهوية البصرية</h3>
-                <p class="lang-en">Unforgettable identity.</p><p class="lang-ar">رسم وبناء هويات فريدة.</p>
+                <p class="lang-en">Unforgettable identity.</p><p class="lang-ar">رسم وبناء هويات تجارية فريدة.</p>
             </div>
         </div>
     </main>
@@ -141,20 +161,64 @@
     <main id="admin-view" class="view-section">
         <div class="admin-layout">
             <aside class="sidebar">
-                <button class="sidebar-btn active" onclick="switchTab('tasks')"><i class="fa-solid fa-list-check"></i> <span class="lang-en">Tasks</span><span class="lang-ar">المهام</span></button>
-                <button class="sidebar-btn" onclick="logoutAdmin()" style="color:var(--accent); margin-top:2rem;"><i class="fa-solid fa-right-from-bracket"></i> <span class="lang-en">Exit</span><span class="lang-ar">خروج</span></button>
+                <button class="sidebar-btn active" id="btn-tab-tasks" onclick="switchTab('tasks')"><i class="fa-solid fa-list-check"></i> <span class="lang-en">Tasks Matrix</span><span class="lang-ar">مصفوفة المهام</span></button>
+                <button class="sidebar-btn" id="btn-tab-memo" onclick="switchTab('memo')"><i class="fa-solid fa-vault"></i> <span class="lang-en">Internal Memo</span><span class="lang-ar">المذكرة السرية</span></button>
+                <button class="sidebar-btn" id="btn-tab-finance" onclick="switchTab('finance')"><i class="fa-solid fa-wallet"></i> <span class="lang-en">Financial Ledger</span><span class="lang-ar">الجرد المالي</span></button>
+                <button class="sidebar-btn" onclick="logoutAdmin()" style="color:var(--accent); margin-top:2rem;"><i class="fa-solid fa-right-from-bracket"></i> <span class="lang-en">Exit Portal</span><span class="lang-ar">خروج</span></button>
             </aside>
-            <section style="background:var(--bg-card); border:1px solid var(--border-color); padding:1.5rem; border-radius:16px;">
+            
+            <section style="background:var(--bg-card); border:1px solid var(--border-color); padding:2rem; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                 <div id="tab-tasks" class="admin-tab-content active">
-                    <h2 class="lang-en">Tasks Management</h2><h2 class="lang-ar">إدارة العمليات والمهام</h2>
-                    <form id="task-form" onsubmit="addTask(event)" style="margin-top:1rem; display:flex; gap:8px; flex-wrap:wrap;">
-                        <input type="text" id="task-title" class="form-control" placeholder="Task..." style="flex:2;" required>
-                        <select id="task-day" class="form-control" style="flex:1;">
-                            <option value="sat">Saturday</option><option value="sun">Sunday</option><option value="mon">Monday</option>
+                    <h2 class="lang-en">Operational Tasks Matrix</h2><h2 class="lang-ar">نظام إسناد المهام العملياتية</h2>
+                    <form id="task-form" onsubmit="addTask(event)" style="margin-top:1.5rem; display:flex; gap:10px; flex-wrap:wrap;">
+                        <input type="text" id="task-title" class="form-control" placeholder="Task description..." style="flex:2; min-width:200px;" required>
+                        <select id="task-day" class="form-control" style="flex:1; min-width:120px;">
+                            <option value="sat">Saturday / السبت</option>
+                            <option value="sun">Sunday / الأحد</option>
+                            <option value="mon">Monday / الإثنين</option>
+                            <option value="tue">Tuesday / الثلاثاء</option>
+                            <option value="wed">Wednesday / الأربعاء</option>
+                            <option value="thu">Thursday / الخميس</option>
+                        </select>
+                        <select id="task-assignee" class="form-control" style="flex:1; min-width:120px;">
+                            <option value="آدم">Adam / آدم</option>
+                            <option value="عمر موسى">Omar Mousa / عمر موسى</option>
+                            <option value="رحمة">Rahma / رحمة</option>
+                            <option value="جنى">Jana / جنى</option>
+                            <option value="محروس">Mahrous / محروس</option>
                         </select>
                         <button type="submit" class="btn-prime"><i class="fa-solid fa-plus"></i></button>
                     </form>
                     <div class="matrix" id="matrix-container"></div>
+                </div>
+
+                <div id="tab-memo" class="admin-tab-content">
+                    <h2 class="lang-en">Directors Internal Memo</h2><h2 class="lang-ar">نوتة الملاحظات السرية للمديرين</h2>
+                    <textarea id="internal-memo-area" class="form-control" rows="12" placeholder="Write internal directives here..." style="margin-top:1.5rem; resize: vertical;" oninput="saveMemo()"></textarea>
+                </div>
+
+                <div id="tab-finance" class="admin-tab-content">
+                    <h2 class="lang-en">Annual Financial Ledger</h2><h2 class="lang-ar">نظام الجرد المالي السنوي</h2>
+                    <div class="ledger-summary" style="margin-top:1.5rem;">
+                        <div class="summary-card"><h4><span class="lang-en">Total Revenue</span><span class="lang-ar">إجمالي الإيرادات</span></h4><p id="fin-rev" style="color:#00ff66;">$0</p></div>
+                        <div class="summary-card"><h4><span class="lang-en">Total Expenses</span><span class="lang-ar">إجمالي المصروفات</span></h4><p id="fin-exp" style="color:#ff3333;">$0</p></div>
+                        <div class="summary-card"><h4><span class="lang-en">Net Operating Profit</span><span class="lang-ar">صافي الربح</span></h4><p id="fin-net">$0</p></div>
+                    </div>
+                    <form id="ledger-form" onsubmit="addLedgerEntry(event)" style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <input type="text" id="entry-desc" class="form-control" placeholder="Item description..." style="flex:2; min-width:200px;" required>
+                        <input type="number" id="entry-amount" class="form-control" placeholder="Amount" style="flex:1; min-width:100px;" required>
+                        <select id="entry-type" class="form-control" style="flex:1; min-width:120px;">
+                            <option value="revenue">Revenue / إيراد</option>
+                            <option value="expense">Expense / مصروف</option>
+                        </select>
+                        <button type="submit" class="btn-prime"><i class="fa-solid fa-check"></i></button>
+                    </form>
+                    <table class="ledger-table">
+                        <thead>
+                            <tr><th>Description</th><th>Type</th><th>Amount</th><th>Action</th></tr>
+                        </thead>
+                        <tbody id="ledger-rows"></tbody>
+                    </table>
                 </div>
             </section>
         </div>
@@ -163,8 +227,8 @@
     <div id="auth-modal" class="modal">
         <div class="modal-content">
             <i class="fa-solid fa-shield-halved" style="font-size:2.5rem; color:var(--accent); margin-bottom:1rem;"></i>
-            <h3 class="lang-en">Security Access</h3><h3 class="lang-ar">التحقق الأمني</h3>
-            <input type="password" id="portal-password" class="form-control" style="text-align:center; margin-top:15px;" placeholder="••••••••">
+            <h3 class="lang-en">Security Authentication</h3><h3 class="lang-ar">التحقق الأمني</h3>
+            <input type="password" id="portal-password" class="form-control" style="text-align:center; letter-spacing:3px; margin-top:15px;" placeholder="••••••••">
             <div style="display:flex; gap:10px; margin-top:15px;">
                 <button class="btn-icon" style="flex:1;" onclick="closeAuthModal()">Cancel</button>
                 <button class="btn-prime" style="flex:1;" onclick="verifyGatekeeperKey()">Verify</button>
@@ -173,10 +237,16 @@
     </div>
 
     <script>
-        // الـ Hash المسبق لـ "F3krO" باستعمال SHA-256 (مستحيل فكه عكسياً)
+        // الـ SHA-256 Hash المشفر لكلمة المرور القديمة "F3krO" لضمان الحماية المطلقة
         const HASHED_KEY = "657a0dbf06c196e8348d28edec25433ce1bf0d7d4ee7899616e453becc0fa291"; 
+        
         let tasks = JSON.parse(localStorage.getItem('f_tasks')) || [];
-        const days = { en: {sat:'Saturday', sun:'Sunday', mon:'Monday'}, ar: {sat:'السبت', sun:'الأحد', mon:'الإثنين'} };
+        let ledger = JSON.parse(localStorage.getItem('f_ledger')) || [];
+        
+        const days = {
+            en: {sat:'Saturday', sun:'Sunday', mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday'},
+            ar: {sat:'السبت', sun:'الأحد', mon:'الإثنين', tue:'الثلاثاء', wed:'الأربعاء', thu:'الخميس'}
+        };
 
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
@@ -191,12 +261,15 @@
             html.setAttribute('data-theme', isDark ? 'light' : 'dark');
             document.querySelector('.btn-icon i').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
+
         function toggleLanguage() {
-            const isEn = document.body.getAttribute('data-lang') === 'en' || !document.body.getAttribute('data-lang');
+            const isEn = document.body.getAttribute('data-lang') === 'en';
             document.body.setAttribute('data-lang', isEn ? 'ar' : 'en');
             document.body.setAttribute('dir', isEn ? 'rtl' : 'ltr');
             renderTasks();
+            renderLedger();
         }
+
         function handlePortalNavigation() { if(sessionStorage.getItem('f_session')==='active') { switchView('admin'); } else { openAuthModal(); } }
         function openAuthModal() { document.getElementById('auth-modal').style.display='flex'; document.getElementById('portal-password').focus(); }
         function closeAuthModal() { document.getElementById('auth-modal').style.display='none'; document.getElementById('portal-password').value=''; }
@@ -206,32 +279,99 @@
             const inputHashed = await sha256(input);
             if(inputHashed === HASHED_KEY) {
                 sessionStorage.setItem('f_session', 'active'); closeAuthModal(); switchView('admin');
-            } else { alert("🚨 Access Denied!"); closeAuthModal(); }
+            } else { alert("🚨 Access Denied: Invalid Security Key."); closeAuthModal(); }
         }
+
         function logoutAdmin() { sessionStorage.removeItem('f_session'); switchView('public'); }
+        
         function switchView(view) {
             document.getElementById('public-view').classList.toggle('active', view==='public');
             document.getElementById('admin-view').classList.toggle('active', view==='admin');
             document.getElementById('portal-nav-btn').style.display = view==='admin' ? 'none' : 'flex';
         }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`btn-tab-${tabId}`).classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        /* Tasks Functions */
         function renderTasks() {
             const container = document.getElementById('matrix-container'); container.innerHTML = '';
             const lang = document.body.getAttribute('data-lang') || 'en';
             Object.keys(days[lang]).forEach(k => {
                 let html = `<div class="day-box"><div class="day-title">${days[lang][k]}</div>`;
-                tasks.filter(t => t.day === k).forEach(t => { html += `<div class="task-item">${t.title}</div>`; });
+                tasks.filter(t => t.day === k).forEach(t => {
+                    html += `
+                        <div class="task-item">
+                            <button class="del-task" onclick="deleteTask(${t.id})"><i class="fa-solid fa-trash-can"></i></button>
+                            <div>${t.title}</div>
+                            <span class="assignee-badge">${t.assignee}</span>
+                        </div>`;
+                });
                 html += `</div>`; container.innerHTML += html;
             });
         }
+
         function addTask(e) {
             e.preventDefault();
-            tasks.push({day: document.getElementById('task-day').value, title: document.getElementById('task-title').value});
+            const title = document.getElementById('task-title').value;
+            const day = document.getElementById('task-day').value;
+            const assignee = document.getElementById('task-assignee').value;
+            tasks.push({id: Date.now(), title, day, assignee});
             localStorage.setItem('f_tasks', JSON.stringify(tasks)); renderTasks(); document.getElementById('task-form').reset();
         }
 
-        // --- نظام الحماية والرخامة السيبرانية ---
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            localStorage.setItem('f_tasks', JSON.stringify(tasks)); renderTasks();
+        }
+
+        /* Memo Functions */
+        function saveMemo() { localStorage.setItem('f_memo', document.getElementById('internal-memo-area').value); }
+        function loadMemo() { document.getElementById('internal-memo-area').value = localStorage.getItem('f_memo') || ''; }
+
+        /* Finance Functions */
+        function renderLedger() {
+            const rows = document.getElementById('ledger-rows'); rows.innerHTML = '';
+            let totalRev = 0; let totalExp = 0;
+            ledger.forEach(entry => {
+                const isRev = entry.type === 'revenue';
+                if(isRev) totalRev += parseFloat(entry.amount); else totalExp += parseFloat(entry.amount);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${entry.desc}</td>
+                    <td><span style="color:${isRev ? '#00ff66':'#ff3333'}; font-weight:bold;">${entry.type.toUpperCase()}</span></td>
+                    <td>$${parseFloat(entry.amount).toLocaleString()}</td>
+                    <td><button class="btn-icon" style="padding:4px 8px; color:var(--accent);" onclick="deleteLedgerEntry(${entry.id})"><i class="fa-solid fa-xmark"></i></button></td>
+                `;
+                rows.appendChild(tr);
+            });
+            const net = totalRev - totalExp;
+            document.getElementById('fin-rev').innerText = `$${totalRev.toLocaleString()}`;
+            document.getElementById('fin-exp').innerText = `$${totalExp.toLocaleString()}`;
+            document.getElementById('fin-net').innerText = `$${net.toLocaleString()}`;
+            document.getElementById('fin-net').style.color = net >= 0 ? '#00ff66' : '#ff3333';
+        }
+
+        function addLedgerEntry(e) {
+            e.preventDefault();
+            const desc = document.getElementById('entry-desc').value;
+            const amount = document.getElementById('entry-amount').value;
+            const type = document.getElementById('entry-type').value;
+            ledger.push({id: Date.now(), desc, amount, type});
+            localStorage.setItem('f_ledger', JSON.stringify(ledger)); renderLedger(); document.getElementById('ledger-form').reset();
+        }
+
+        function deleteLedgerEntry(id) {
+            ledger = ledger.filter(e => e.id !== id);
+            localStorage.setItem('f_ledger', JSON.stringify(ledger)); renderLedger();
+        }
+
+        // --- نظام الحماية والرخامة السيبرانية المطلقة ---
         document.addEventListener('contextmenu', e => e.preventDefault()); // منع الكليك يمين
-        
         document.onkeydown = function(e) {
             if (e.keyCode == 123 || // F12
                 (e.ctrlKey && e.shiftKey && e.keyCode == 73) || // Ctrl+Shift+I
@@ -240,11 +380,14 @@
                 return false;
             }
         };
-
-        // فخ الـ Debugger اللا نهائي لتهنيج الـ DevTools
+        // فخ الـ Debugger لمنع الـ Inspect تماماً
         setInterval(() => { debugger; }, 100);
 
-        window.onload = () => { renderTasks(); document.body.setAttribute('data-lang', 'en'); };
+        window.onload = () => {
+            renderTasks();
+            renderLedger();
+            loadMemo();
+        };
     </script>
 </body>
 </html>
