@@ -42,7 +42,11 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: background 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body {
@@ -72,6 +76,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            animation: slideDown 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .logo-container {
@@ -114,7 +119,12 @@
 
         .btn-icon:hover, .btn-prime:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 12px var(--accent-glow);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon:active, .btn-prime:active {
+            transform: scale(0.95);
         }
 
         .btn-prime {
@@ -123,29 +133,34 @@
             border: none;
         }
 
-        /* --- View Management --- */
+        /* --- View Management & Luxury Animations --- */
         .view-section {
             display: none;
             padding-top: 100px;
             min-height: 100vh;
-            animation: fadeIn 0.5s ease-in-out forwards;
         }
 
         .view-section.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Landing Page (Hero, Services, Features) --- */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- Landing Page --- */
         .hero {
             text-align: center;
             padding: 6rem 2rem 3rem;
             max-width: 800px;
             margin: 0 auto;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .hero h1 {
@@ -156,7 +171,7 @@
 
         .hero h1 span {
             color: var(--accent);
-            text-shadow: 0 0 15px var(--accent-glow);
+            text-shadow: 0 0 20px var(--accent-glow);
         }
 
         .hero p {
@@ -173,6 +188,7 @@
             flex-wrap: wrap;
             margin-bottom: 3rem;
             padding: 0 2rem;
+            animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .btn-social {
@@ -186,19 +202,22 @@
             font-size: 1rem;
             color: #fff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn-social:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .btn-social:active {
+            transform: scale(0.95);
         }
 
         .btn-facebook { background: #1877F2; }
-        .btn-facebook:hover { box-shadow: 0 0 15px rgba(24,119,242,0.6); }
+        .btn-facebook:hover { box-shadow: 0 0 20px rgba(24,119,242,0.6); }
         .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .btn-instagram:hover { box-shadow: 0 0 15px rgba(220,39,67,0.6); }
+        .btn-instagram:hover { box-shadow: 0 0 20px rgba(220,39,67,0.6); }
         .btn-whatsapp { background: #25D366; }
-        .btn-whatsapp:hover { box-shadow: 0 0 15px rgba(37,211,102,0.6); }
+        .btn-whatsapp:hover { box-shadow: 0 0 20px rgba(37,211,102,0.6); }
 
         .grid-container {
             display: grid;
@@ -207,6 +226,7 @@
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .card {
@@ -214,10 +234,25 @@
             text-align: center;
         }
 
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px 0 rgba(255, 0, 60, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .card:active {
+            transform: scale(0.97);
+        }
+
         .card i {
             font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover i {
+            transform: scale(1.1) rotate(5deg);
         }
 
         /* --- Admin Portal Structure --- */
@@ -228,6 +263,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .admin-sidebar {
@@ -259,10 +295,20 @@
         .sidebar-btn.active, .sidebar-btn:hover {
             background: var(--accent);
             color: white;
+            transform: translateX(5px);
+        }
+        
+        body[dir="rtl"] .sidebar-btn.active, body[dir="rtl"] .sidebar-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        .sidebar-btn:active {
+            transform: scale(0.95);
         }
 
         .admin-tab-content {
             display: none;
+            animation: fadeInUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .admin-tab-content.active {
@@ -270,16 +316,6 @@
         }
 
         /* --- Forms & Controls --- */
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-        }
-
         .form-control {
             width: 100%;
             padding: 12px;
@@ -292,6 +328,7 @@
         .form-control:focus {
             outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         /* --- Tasks Matrix Layout --- */
@@ -322,6 +359,12 @@
             border-radius: 6px;
             margin-bottom: 10px;
             position: relative;
+            animation: fadeInUp 0.3s ease forwards;
+        }
+
+        .task-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
 
         .task-item .delete-btn {
@@ -398,6 +441,7 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            animation: fadeInUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         /* --- Multi-language support --- */
@@ -428,7 +472,6 @@
             <p class="lang-ar">وكالة فيكرو للدعاية والإعلان، صناعة المحتوى، التصوير الفوتوغرافي، وبناء الهويات البصرية النخبوية.</p>
         </section>
 
-        <!-- Social Connect Section -->
         <section class="social-connect-container">
             <a href="https://www.facebook.com/share/18mmBvU115/" target="_blank" class="btn-social btn-facebook">
                 <i class="fa-brands fa-facebook-f"></i> Facebook
@@ -543,7 +586,7 @@
 
     <script>
         /* --- Cryptographic System State & Memory Engine --- */
-        const GATEKEEPER_KEY = "fekro2026";
+        const GATEKEEPER_KEY = "F3krO";
         let tasks = JSON.parse(localStorage.getItem('fekro_tasks')) || [];
         let ledger = JSON.parse(localStorage.getItem('fekro_ledger')) || [];
 
