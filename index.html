@@ -15,7 +15,7 @@
         /* --- Design System & Variables --- */
         :root[data-theme="dark"] {
             --bg-main: #050505;
-            --bg-card: rgba(25., 25, 25, 0.4);
+            --bg-card: rgba(25, 25, 25, 0.4);
             --border-color: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
             --text-muted: #8e8e93;
@@ -52,7 +52,7 @@
             color: var(--text-main);
             overflow-x: hidden;
             min-height: 100vh;
-            perspective: 1000px; /* لتهيئة بيئة الـ 3D */
+            perspective: 1000px;
         }
 
         /* --- Glassmorphic & 3D Layer --- */
@@ -67,17 +67,18 @@
             will-change: transform;
         }
 
-        /* --- Navigation Bar --- */
+        /* --- Navigation Bar (Fixed Z-Index & Clickable) --- */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 9999 !important; /* لضمان ظهور الهيدر فوق أي كروت 3D */
             padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             animation: slideDown 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            pointer-events: auto !important;
         }
 
         .logo-container {
@@ -103,6 +104,8 @@
             display: flex;
             gap: 15px;
             align-items: center;
+            z-index: 10000 !important;
+            pointer-events: auto !important;
         }
 
         .btn-icon, .btn-prime {
@@ -119,6 +122,8 @@
             text-decoration: none;
             transform-style: preserve-3d;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            z-index: 10001 !important;
         }
 
         .btn-icon:hover, .btn-prime:hover {
@@ -140,7 +145,7 @@
         /* --- View Management & Luxury Animations --- */
         .view-section {
             display: none;
-            padding-top: 120px;
+            padding-top: 140px;
             min-height: 100vh;
         }
 
@@ -161,7 +166,7 @@
         /* --- Landing Page --- */
         .hero {
             text-align: center;
-            padding: 5rem 2rem 3rem;
+            padding: 3rem 2rem 2rem;
             max-width: 900px;
             margin: 0 auto;
             animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -219,17 +224,6 @@
             transform: translateY(-5px) scale(1.05);
         }
 
-        .btn-social:active {
-            transform: scale(0.95);
-        }
-
-        .btn-facebook { background: #1877F2; }
-        .btn-facebook:hover { box-shadow: 0 10px 25px rgba(24,119,242,0.5); }
-        .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .btn-instagram:hover { box-shadow: 0 10px 25px rgba(220,39,67,0.5); }
-        .btn-whatsapp { background: #25D366; }
-        .btn-whatsapp:hover { box-shadow: 0 10px 25px rgba(37,211,102,0.5); }
-
         /* --- 3D Cards Grid --- */
         .grid-container {
             display: grid;
@@ -239,6 +233,8 @@
             max-width: 1200px;
             margin: 0 auto;
             animation: fadeInUp 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            position: relative;
+            z-index: 1; /* الحفاظ عليها تحت مستوى الهيدر دائماً */
         }
 
         .card {
@@ -258,7 +254,7 @@
             color: var(--accent);
             margin-bottom: 2rem;
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: translateZ(30px); /* يخلي الأيقونة تطلع لبرة في الـ 3D */
+            transform: translateZ(30px);
         }
 
         .card h3 {
@@ -316,8 +312,420 @@
             transform: translateX(8px) translateZ(10px);
             box-shadow: 0 5px 15px var(--accent-glow);
         }
-        
-        body[dir="rtl"] .sidebar-btn.active, body[dir="rtl"] .sidebar-btn:hover {
+
+        .admin-tab-content {
+            display: none;
+            animation: fadeInUp 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .admin-tab-content.active {
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 12px;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .day-column {
+            padding: 1.5rem;
+            min-height: 320px;
+        }
+
+        .day-title {
+            font-weight: 800;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .task-item {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .task-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.04) translateZ(10px);
+        }
+
+        .task-item .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .ledger-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .summary-card {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ledger-table th, .ledger-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 99999 !important;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            padding: 3rem;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        [data-lang="en"] .lang-ar, [data-lang="ar"] .lang-en { display: none; }
+    </style>
+</head>
+<body data-lang="en" dir="ltr">
+
+    <header class="glass-panel">
+        <div class="logo-container">
+            <img src="logo.png" alt="FekroO Logo">
+        </div>
+        <div class="nav-controls">
+            <button class="btn-icon" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+            <button class="btn-icon" onclick="toggleLanguage()"><span class="lang-en">العربية</span><span class="lang-ar">English</span></button>
+            <button class="btn-prime" id="portal-nav-btn" onclick="handlePortalNavigation()">
+                <i class="fa-solid fa-lock"></i> 
+                <span class="lang-en">Admin Portal</span><span class="lang-ar">لوحة التحكم</span>
+            </button>
+        </div>
+    </header>
+
+    <main id="public-view" class="view-section active">
+        <section class="hero">
+            <h1 class="lang-en">We Design the <br><span>Digital Future</span></h1>
+            <h1 class="lang-ar">نحن نصمم <br><span>المستقبل الرقمي</span></h1>
+            <p class="lang-en">FekroO Agency for Advertising, Content Creation, Photography, and Elite Visual Branding.</p>
+            <p class="lang-ar">وكالة فيكرو للدعاية والإعلان، صناعة المحتوى، التصوير الفوتوغرافي، وبناء الهويات البصرية النخبوية.</p>
+        </section>
+
+        <section class="social-connect-container">
+            <a href="https://www.facebook.com/share/18mmBvU115/" target="_blank" class="btn-social btn-facebook">
+                <i class="fa-brands fa-facebook-f"></i> Facebook
+            </a>
+            <a href="https://www.instagram.com/fekroo.ag?igsh=MXh6cHRldmVudmRoYQ==" target="_blank" class="btn-social btn-instagram">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+            <a href="https://wa.me/201066880652" target="_blank" class="btn-social btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp Direct
+            </a>
+        </section>
+
+        <section class="grid-container">
+            <div class="card glass-panel" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <i class="fa-solid fa-rectangle-ad"></i>
+                <h3 class="lang-en">Digital Marketing</h3><h3 class="lang-ar">التسويق الرقمي والدعاية</h3>
+                <p class="lang-en">Elite advertising solutions.</p><p class="lang-ar">حلول إعلانية وتسويقية مبتكرة.</p>
+            </div>
+            <div class="card glass-panel" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <i class="fa-solid fa-camera"></i>
+                <h3 class="lang-en">Content & Photography</h3><h3 class="lang-ar">صناعة المحتوى والتصوير</h3>
+                <p class="lang-en">High-end visual production.</p><p class="lang-ar">إنتاج مرئي ومحتوى فوتوغرافي احترافي.</p>
+            </div>
+            <div class="card glass-panel" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <i class="fa-solid fa-bezier-curve"></i>
+                <h3 class="lang-en">Branding & Design</h3><h3 class="lang-ar">الهوية البصرية والديزاين</h3>
+                <p class="lang-en">Unforgettable corporate identity.</p><p class="lang-ar">رسم وبناء هويات تجارية فريدة.</p>
+            </div>
+        </section>
+    </main>
+
+    <main id="admin-view" class="view-section">
+        <div class="admin-grid">
+            <aside class="admin-sidebar glass-panel">
+                <button class="sidebar-btn active" onclick="switchTab('tasks')"><i class="fa-solid fa-list-check"></i> <span class="lang-en">Tasks Matrix</span><span class="lang-ar">مصفوفة المهام</span></button>
+                <button class="sidebar-btn" onclick="switchTab('memo')"><i class="fa-solid fa-vault"></i> <span class="lang-en">Internal Memo</span><span class="lang-ar">المذكرة السرية</span></button>
+                <button class="sidebar-btn" onclick="switchTab('finance')"><i class="fa-solid fa-wallet"></i> <span class="lang-en">Financial Ledger</span><span class="lang-ar">الجرد المالي</span></button>
+                <button class="sidebar-btn" onclick="logoutAdmin()" style="margin-top:auto; color:var(--accent);"><i class="fa-solid fa-right-from-bracket"></i> <span class="lang-en">Exit Portal</span><span class="lang-ar">خروج</span></button>
+            </aside>
+
+            <section class="admin-main-content">
+                <div id="tab-tasks" class="admin-tab-content active glass-panel" style="padding: 2rem;">
+                    <h2 class="lang-en">Tasks Matrix Deployment</h2><h2 class="lang-ar">نظام إسناد المهام العملياتية</h2>
+                    <form id="task-form" onsubmit="addTask(event)" style="margin-top:1.5rem; display:flex; gap:10px; flex-wrap:wrap;">
+                        <input type="text" id="task-title" class="form-control" placeholder="Task description..." style="flex:2; min-width:200px;" required>
+                        <select id="task-day" class="form-control" style="flex:1; min-width:130px;">
+                            <option value="sat">Saturday / السبت</option>
+                            <option value="sun">Sunday / الأحد</option>
+                            <option value="mon">Monday / الإثنين</option>
+                            <option value="tue">Tuesday / الثلاثاء</option>
+                            <option value="wed">Wednesday / الأربعاء</option>
+                            <option value="thu">Thursday / الخميس</option>
+                        </select>
+                        <select id="task-assignee" class="form-control" style="flex:1; min-width:130px;">
+                            <option value="آدم">Adam / آدم</option>
+                            <option value="عمر موسى">Omar Mousa / عمر موسى</option>
+                            <option value="رحمة">Rahma / رحمة</option>
+                            <option value="جنى">Jana / جنى</option>
+                            <option value="محروس">Mahrous / محروس</option>
+                        </select>
+                        <button type="submit" class="btn-prime"><i class="fa-solid fa-plus"></i></button>
+                    </form>
+                    <div class="matrix-grid" id="matrix-container"></div>
+                </div>
+
+                <div id="tab-memo" class="admin-tab-content glass-panel" style="padding: 2rem;">
+                    <h2 class="lang-en">Directors Cryptographic Memo</h2><h2 class="lang-ar">نوتة الملاحظات السرية للمديرين</h2>
+                    <textarea id="internal-memo-area" class="form-control" rows="12" placeholder="Write corporate directives here..." oninput="saveMemo()"></textarea>
+                </div>
+
+                <div id="tab-finance" class="admin-tab-content glass-panel" style="padding: 2rem;">
+                    <h2 class="lang-en">Financial Ledger Reporting</h2><h2 class="lang-ar">نظام الجرد المالي السنوي</h2>
+                    <div class="ledger-summary" style="margin-top:1.5rem;">
+                        <div class="glass-panel summary-card" data-tilt><h4 class="lang-en">Total Revenue</h4><h4 class="lang-ar">إجمالي الإيرادات</h4><p id="fin-rev">$0</p></div>
+                        <div class="glass-panel summary-card expense" data-tilt><h4 class="lang-en">Total Expenses</h4><h4 class="lang-ar">إجمالي المصروفات</h4><p id="fin-exp">$0</p></div>
+                        <div class="glass-panel summary-card profit" data-tilt><h4 class="lang-en">Net Operating Profit</h4><h4 class="lang-ar">صافي الربح</h4><p id="fin-net">$0</p></div>
+                    </div>
+                    <form id="ledger-form" onsubmit="addLedgerEntry(event)" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:2rem;">
+                        <input type="text" id="entry-desc" class="form-control" placeholder="Item description..." style="flex:2; min-width:200px;" required>
+                        <input type="number" id="entry-amount" class="form-control" placeholder="Amount" style="flex:1; min-width:100px;" required>
+                        <select id="entry-type" class="form-control" style="flex:1; min-width:120px;">
+                            <option value="revenue">Revenue / إيراد</option>
+                            <option value="expense">Expense / مصروف</option>
+                        </select>
+                        <button type="submit" class="btn-prime"><i class="fa-solid fa-check"></i></button>
+                    </form>
+                    <table class="ledger-table">
+                        <thead>
+                            <tr><th>Description / البيان</th><th>Type / النوع</th><th>Amount / القيمة</th><th>Action</th></tr>
+                        </thead>
+                        <tbody id="ledger-rows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="auth-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <i class="fa-solid fa-shield-halved" style="font-size:3rem; color:var(--accent); margin-bottom:1rem;"></i>
+            <h3 class="lang-en">Cryptographic Authentication</h3><h3 class="lang-ar">نظام التحقق الأمني</h3>
+            <input type="password" id="portal-password" class="form-control" style="text-align:center; letter-spacing:4px; margin-top:15px;" placeholder="••••••••">
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn-icon" style="flex:1;" onclick="closeAuthModal()">Cancel</button>
+                <button class="btn-prime" style="flex:1;" onclick="verifyGatekeeperKey()">Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script>
+        const GATEKEEPER_KEY = "F3krO";
+        let tasks = JSON.parse(localStorage.getItem('fekro_tasks')) || [];
+        let ledger = JSON.parse(localStorage.getItem('fekro_ledger')) || [];
+
+        const daysMapping = {
+            en: { sat: 'Saturday', sun: 'Sunday', mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday' },
+            ar: { sat: 'السبت', sun: 'الأحد', mon: 'الإثنين', tue: 'الثلاثاء', wed: 'الأربعاء', thu: 'الخميس' }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            sessionStorage.removeItem('fekro_admin_session');
+            renderTasksMatrix();
+            renderLedger();
+            loadMemo();
+        });
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            const icon = document.querySelector('.btn-icon i');
+            icon.className = targetTheme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        }
+
+        function toggleLanguage() {
+            const currentLang = document.body.getAttribute('data-lang');
+            const targetLang = currentLang === 'en' ? 'ar' : 'en';
+            document.body.setAttribute('data-lang', targetLang);
+            document.body.setAttribute('dir', targetLang === 'ar' ? 'rtl' : 'ltr');
+            renderTasksMatrix(); 
+        }
+
+        function handlePortalNavigation() {
+            if (sessionStorage.getItem('fekro_admin_session') === 'active') {
+                switchView('admin');
+            } else {
+                openAuthModal();
+            }
+        }
+
+        function openAuthModal() { document.getElementById('auth-modal').style.display = 'flex'; document.getElementById('portal-password').focus(); }
+        function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; document.getElementById('portal-password').value = ''; }
+
+        function verifyGatekeeperKey() {
+            const input = document.getElementById('portal-password').value;
+            if (input === GATEKEEPER_KEY) {
+                sessionStorage.setItem('fekro_admin_session', 'active');
+                closeAuthModal();
+                switchView('admin');
+            } else {
+                alert("🚨 Access Denied: Invalid Security Cryptokey.");
+                closeAuthModal();
+            }
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('fekro_admin_session');
+            switchView('public');
+        }
+
+        function switchView(view) {
+            document.getElementById('public-view').classList.remove('active');
+            document.getElementById('admin-view').classList.remove('active');
+            if (view === 'admin') {
+                document.getElementById('admin-view').classList.add('active');
+                document.getElementById('portal-nav-btn').style.display = 'none';
+            } else {
+                document.getElementById('public-view').classList.add('active');
+                document.getElementById('portal-nav-btn').style.display = 'flex';
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function renderTasksMatrix() {
+            const container = document.getElementById('matrix-container');
+            container.innerHTML = '';
+            const lang = document.body.getAttribute('data-lang');
+            
+            Object.keys(daysMapping[lang]).forEach(dayKey => {
+                const dayColumn = document.createElement('div');
+                dayColumn.className = 'day-column glass-panel';
+                dayColumn.setAttribute('data-tilt', '');
+                dayColumn.setAttribute('data-tilt-max', '4');
+                
+                let dayTasksHtml = '';
+                tasks.filter(t => t.day === dayKey).forEach(task => {
+                    dayTasksHtml += `
+                        <div class="task-item">
+                            <button class="delete-btn" onclick="deleteTask(${task.id})"><i class="fa-solid fa-trash-can"></i></button>
+                            <div style="font-size:0.95rem; font-weight:500; padding-right:15px;">${task.title}</div>
+                            <span class="assignee-badge">${task.assignee}</span>
+                        </div>`;
+                });
+
+                dayColumn.innerHTML = `
+                    <div class="day-title">${daysMapping[lang][dayKey]}</div>
+                    <div class="tasks-list-wrapper">${dayTasksHtml}</div>
+                `;
+                container.appendChild(dayColumn);
+            });
+            if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+        }
+
+        function addTask(e) {
+            e.preventDefault();
+            const title = document.getElementById('task-title').value;
+            const day = document.getElementById('task-day').value;
+            const assignee = document.getElementById('task-assignee').value;
+            tasks.push({ id: Date.now(), title, day, assignee });
+            localStorage.setItem('fekro_tasks', JSON.stringify(tasks));
+            renderTasksMatrix();
+            document.getElementById('task-form').reset();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            localStorage.setItem('fekro_tasks', JSON.stringify(tasks));
+            renderTasksMatrix();
+        }
+
+        function saveMemo() { localStorage.setItem('fekro_internal_memo', document.getElementById('internal-memo-area').value); }
+        function loadMemo() { document.getElementById('internal-memo-area').value = localStorage.getItem('fekro_internal_memo') || ''; }
+
+        function renderLedger() {
+            const rowsContainer = document.getElementById('ledger-rows');
+            rowsContainer.innerHTML = '';
+            let totalRev = 0; let totalExp = 0;
+            ledger.forEach(entry => {
+                const isRev = entry.type === 'revenue';
+                if(isRev) totalRev += parseFloat(entry.amount); else totalExp += parseFloat(entry.amount);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${entry.desc}</td>
+                    <td><span style="color:${isRev ? '#00ff66':'#ff3333'}">${entry.type.toUpperCase()}</span></td>
+                    <td>$${parseFloat(entry.amount).toLocaleString()}</td>
+                    <td><button class="btn-icon" style="padding:4px 8px; color:var(--accent);" onclick="deleteLedgerEntry(${entry.id})"><i class="fa-solid fa-xmark"></i></button></td>
+                `;
+                rowsContainer.appendChild(row);
+            });
+            const netProfit = totalRev - totalExp;
+            document.getElementById('fin-rev').innerText = `$${totalRev.toLocaleString()}`;
+            document.getElementById('fin-exp').innerText = `$${totalExp.toLocaleString()}`;
+            document.getElementById('fin-net').innerText = `$${netProfit.toLocaleString()}`;
+        }
+
+        function addLedgerEntry(e) {
+            e.preventDefault();
+            const desc = document.getElementById('entry-desc').value;
+            const amount = document.getElementById('entry-amount').value;
+            const type = document.getElementById('entry-type').value;
+            ledger.push({ id: Date.now(), desc, amount, type });
+            localStorage.setItem('fekro_ledger', JSON.stringify(ledger));
+            renderLedger();
+            document.getElementById('ledger-form').reset();
+        }
+
+        function deleteLedgerEntry(id) {
+            ledger = ledger.filter(e => e.id !== id);
+            localStorage.setItem('fekro_ledger', JSON.stringify(ledger));
+            renderLedger();
+        }
+    </script>
+</body>
+</html>
+over {
             transform: translateX(-8px) translateZ(10px);
         }
 
